@@ -1,5 +1,5 @@
 # Python 3
-# pip3 installl pyJwt
+# pip3 install pyJwt
 import jwt 
 import uuid
 import hashlib
@@ -8,8 +8,8 @@ from urllib.parse import urlencode
 import requests
 import json
 
-accessKey = '빗썸 API Key' #사용자가 설정
-secretKey = '밧썸 Secret Key'  #사용자가 설정
+accessKey = input("빗썸 API Key를 입력하세요: ")
+secretKey = input("밧썸 Secret Key를 입력하세요: ")  
 apiUrl = 'https://api.bithumb.com'
 tradeToken = 'KRW-SOPH' #사용자가 설정
 tradeTokenAmount = 0
