@@ -1,20 +1,31 @@
 # Python 3
 # pip3 install pyJwt
-import jwt 
+try:
+    import jwt
+except ImportError:
+    print("⚙️ pyjwt 라이브러리가 없어 설치 중입니다...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyjwt"])
+    import jwt
 import uuid
 import hashlib
 import time
 from urllib.parse import urlencode
-import requests
+try:
+    import requests
+except ImportError:
+    print("⚙️ requests 라이브러리가 없어 설치 중입니다...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    import requests
 import json
 
-accessKey = input("빗썸 API Key를 입력하세요: ")
-secretKey = input("밧썸 Secret Key를 입력하세요: ")  
+accessKey = input("빗썸 API Key를 입력하세요: ").strip()
+secretKey = input("밧썸 Secret Key를 입력하세요: ").strip()
 apiUrl = 'https://api.bithumb.com'
-tradeToken = 'KRW-SOPH' #사용자가 설정
+tradeToken = f"KRW-{input('거래할 토큰 티커를 입력하세요 (예: BTC, ETH, XRP): ').strip().upper()}"
+TradeVolumeKoreanWon = max(int(float(input(f"매수에 사용할 원화 금액을 입력하세요 (단위 KRW, 최소 {6000}): ").strip().replace(',',''))), 6000)
 tradeTokenAmount = 0
 tradeTokenPrice = 0
-TradeVolumeKoreanWon = 6000 #사용자가 설정
+
 
 # --- 현재가 조회 함수 (Public API) ---
 def get_current_price(market_token):
