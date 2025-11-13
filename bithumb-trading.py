@@ -20,6 +20,20 @@ except ImportError:
     import requests
 import json
 
+def format_price(price):
+    """price 값에 따라 소수점 자릿수를 조정합니다."""
+    if price < 1:
+        return round(price, 4)
+    elif price < 10:
+        return round(price, 3)
+    elif price < 100:
+        return round(price, 2)
+    else:
+        return round(price, 0)
+
+def format_volume(volume):
+    return round(volume, 8)
+
 accessKey = input("빗썸 API Key를 입력하세요: ").strip()
 secretKey = input("밧썸 Secret Key를 입력하세요: ").strip()
 apiUrl = 'https://api.bithumb.com'
@@ -91,8 +105,8 @@ print(f'\n--- 거래 정보 계산 결과 ---\n마켓: {tradeToken}\n현재가: 
 requestBody = dict( 
     market=tradeToken, 
     side='bid', 
-    volume=round(tradeTokenAmount, 4), 
-    price=round(tradeTokenPrice * 1.1, 2), # 현재가보다 10% 높은 가격으로 매수 지정
+    volume=format_volume(tradeTokenAmount), 
+    price=format_price(tradeTokenPrice * 1.1), # 현재가보다 10% 높은 가격으로 매수 지정
     ord_type='limit' 
 )
 execute_order(requestBody, accessKey, secretKey, apiUrl, "매수(BUY)")
@@ -107,8 +121,8 @@ time.sleep(2)
 requestBody = dict( 
     market=tradeToken, 
     side='ask', 
-    volume=round(tradeTokenAmount, 4), 
-    price=round(tradeTokenPrice * 0.9, 2), # 현재가보다 10% 낮은 가격으로 매도 지정
+    volume=format_volume(tradeTokenAmount), 
+    price=format_price(tradeTokenPrice * 0.9), # 현재가보다 10% 낮은 가격으로 매도 지정
     ord_type='limit' 
 ) 
 execute_order(requestBody, accessKey, secretKey, apiUrl, "매도(SELL)")
