@@ -1,11 +1,21 @@
 # Python 3
 # pip3 install pyJwt
-import jwt 
+try:
+    import jwt
+except ImportError:
+    print("⚙️ pyjwt 라이브러리가 없어 설치 중입니다...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyjwt"])
+    import jwt
 import uuid
 import hashlib
 import time
 from urllib.parse import urlencode
-import requests
+try:
+    import requests
+except ImportError:
+    print("⚙️ requests 라이브러리가 없어 설치 중입니다...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    import requests
 import json
 
 accessKey = input("빗썸 API Key를 입력하세요: ").strip()
