@@ -1,5 +1,7 @@
 # Python 3
 # pip3 install pyJwt
+import sys
+import subprocess
 try:
     import jwt
 except ImportError:
