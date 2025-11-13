@@ -48,6 +48,9 @@ def get_current_price(market_token):
 def execute_order(requestBody, accessKey, secretKey, apiUrl, order_type):
     """주문 정보를 받아 JWT를 생성하고 Bithumb API를 호출합니다."""
     
+    print(f"\n--- {order_type} 주문 요청 정보 ---")
+    print(f"RequestBody: {requestBody}")
+    
     # Generate access token
     query = urlencode(requestBody).encode()
     hash = hashlib.sha512()
