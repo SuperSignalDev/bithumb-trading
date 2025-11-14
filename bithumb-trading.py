@@ -21,15 +21,24 @@ except ImportError:
 import json
 
 def format_price(price):
-    """price 값에 따라 소수점 자릿수를 조정합니다."""
+    """price 값에 따라 소수점 자릿수와 기본 단위를 조정합니다."""
     if price < 1:
         return round(price, 4)
     elif price < 10:
         return round(price, 3)
     elif price < 100:
         return round(price, 2)
-    else:
+    elif price < 10000:
         return round(price, 0)
+    elif price < 100000:
+        # 기본 단위: 10
+        return round(price / 10) * 10
+    elif price < 1000000:
+        # 기본 단위: 100
+        return round(price / 100) * 100
+    else:
+        # 기본 단위: 1000
+        return round(price / 1000) * 1000
 
 def format_volume(volume):
     return round(volume, 8)
